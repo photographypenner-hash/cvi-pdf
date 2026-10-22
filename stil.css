@@ -1,87 +1,109 @@
-/* CVI PDF – Webseite. Grosse Schrift, starker Kontrast, hell und dunkel. Keine externen Dateien. */
 :root {
-  --text: #111111;
-  --text-leise: #3d3d3d;
-  --grund: #ffffff;
-  --flaeche: #f2f2ee;
-  --linie: #8a8a8a;
-  --akzent: #0a4aa8;
-  --akzent-text: #ffffff;
-  --fokus: #ffbf00;
+  --salbei:#2f5d3a; --mint:#d2f2c2; --creme:#f9f1e0; --orange:#f14806; --tinte:#2200a8; --schwarz:#111;
+  --anzeige:"Helvetica Neue", "Arial Black", "Arial", system-ui, sans-serif;
+  --fokus:#ffd92e;
 }
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #f5f5f5;
-    --text-leise: #d0d0d0;
-    --grund: #0c0c0c;
-    --flaeche: #1c1c1c;
-    --linie: #8a8a8a;
-    --akzent: #ffd92e;
-    --akzent-text: #0c0c0c;
-    --fokus: #ffd92e;
-  }
-}
+* { box-sizing:border-box; }
+html { font-size:106.25%; scroll-behavior:smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior:auto; } * { transition:none !important; } }
+body { margin:0; background:var(--creme); color:var(--schwarz); font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; line-height:1.6; }
+a { color:inherit; text-underline-offset:.2em; text-decoration-thickness:2px; }
+a:focus-visible, summary:focus-visible, input:focus-visible, button:focus-visible { outline:4px solid var(--fokus); outline-offset:3px; border-radius:4px; }
+.sprung { position:absolute; left:1rem; top:-4rem; background:var(--fokus); color:#111; padding:.6rem 1rem; z-index:10; font-weight:800; }
+.sprung:focus { top:1rem; }
+.innen { max-width:76rem; margin:0 auto; padding:0 24px; }
+.schmal { max-width:46rem; }
+.gross { font-family:var(--anzeige); font-weight:900; text-transform:uppercase; letter-spacing:-.03em; line-height:.86; }
 
-* { box-sizing: border-box; }
-html { font-size: 112.5%; }
-body {
-  margin: 0;
-  background: var(--grund);
-  color: var(--text);
-  font-family: Verdana, "DejaVu Sans", Geneva, sans-serif;
-  line-height: 1.7;
-  letter-spacing: 0.02em;
-}
-a { color: var(--akzent); text-underline-offset: 0.2em; text-decoration-thickness: 2px; }
-a:focus-visible, button:focus-visible { outline: 4px solid var(--fokus); outline-offset: 3px; border-radius: 4px; }
+/* Kopf: klein und ruhig, wie bei Peden + Munk */
+.kopf { position:absolute; top:0; left:0; right:0; z-index:5; }
+.kopf .innen { display:flex; flex-wrap:wrap; align-items:center; gap:.5rem 1.4rem; padding-top:1.1rem; padding-bottom:1.1rem; }
+.marke { display:flex; align-items:center; gap:.6rem; text-decoration:none; font-weight:800; font-size:.95rem; letter-spacing:.04em; text-transform:uppercase; }
+.marke img { width:34px; height:34px; border-radius:8px; }
+nav ul { display:flex; flex-wrap:wrap; gap:.2rem 1.2rem; list-style:none; margin:0; padding:0; }
+nav a { text-decoration:none; font-weight:700; font-size:.9rem; text-transform:uppercase; letter-spacing:.06em; padding:.3rem 0; border-bottom:2px solid transparent; }
+nav a:hover, nav a[aria-current="page"] { border-bottom-color:currentColor; }
+.wechsel { margin-left:auto; font-size:.85rem; font-weight:700; }
+.auf-gruen { color:var(--creme); }
+.auf-mint { color:var(--tinte); }
 
-.sprung {
-  position: absolute; left: 1rem; top: -4rem;
-  background: var(--akzent); color: var(--akzent-text); padding: 0.6rem 1rem; border-radius: 8px; z-index: 10;
-}
-.sprung:focus { top: 1rem; }
+/* Einstieg: grün, riesiger Schriftzug, orange Bildkachel */
+.einstieg { background:var(--salbei); color:var(--creme); padding:7rem 0 0; overflow:hidden; }
+.wortmarke { font-size:clamp(5.5rem, 21vw, 19rem); margin:0; }
+.wortmarke span { display:block; }
+.wortmarke span + span { padding-left:22%; }
+.einstieg .unterzeile { display:grid; grid-template-columns:minmax(0, 18rem) 1fr; gap:2rem; margin-top:1.8rem; align-items:start; }
+.einstieg .etikett { font-weight:800; font-size:.95rem; line-height:1.35; }
+.einstieg .lead { font-size:clamp(1.15rem, 2vw, 1.5rem); line-height:1.45; max-width:40rem; margin:0; }
+.kachel { margin:3.5rem 0 0 22%; background:var(--orange); padding:clamp(1rem, 3vw, 2.6rem); padding-bottom:0; }
+.kachel img { display:block; width:100%; height:auto; background:#fff; }
 
-.kopf {
-  border-bottom: 2px solid var(--linie);
-  background: var(--flaeche);
-}
-.kopf-innen, main, .fuss-innen { max-width: 46rem; margin: 0 auto; padding: 0 16px; }
-.kopf-innen { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.5rem; padding-top: 0.9rem; padding-bottom: 0.9rem; }
-.marke { display: flex; align-items: center; gap: 0.75rem; color: var(--text); text-decoration: none; font-weight: bold; font-size: 1.25rem; }
-.marke img { width: 48px; height: 48px; border-radius: 11px; }
-nav ul { display: flex; flex-wrap: wrap; gap: 0.25rem 1.1rem; list-style: none; margin: 0; padding: 0; }
-nav a { display: inline-block; padding: 0.35rem 0.1rem; font-weight: bold; text-decoration: none; }
-nav a:hover, nav a[aria-current="page"] { text-decoration: underline; }
-.sprache { margin-left: auto; }
+/* Abschnitte mit eigener Farbe */
+section { padding:5.5rem 0; }
+.mint { background:var(--mint); color:var(--tinte); }
+.creme { background:var(--creme); color:var(--schwarz); }
+.orange { background:var(--orange); color:var(--schwarz); }
+.tinte { background:var(--tinte); color:var(--creme); }
+.titel { font-size:clamp(2.6rem, 8vw, 6.5rem); margin:0 0 2.5rem; }
+.liste { list-style:none; margin:0; padding:0; border-top:3px solid currentColor; }
+.liste li { display:grid; grid-template-columns:4rem 1fr 1.4fr; gap:1.5rem; align-items:start; padding:1.4rem 0; border-bottom:3px solid currentColor; }
+.liste .nr { font-family:var(--anzeige); font-weight:900; font-size:1.6rem; }
+.liste h3 { font-family:var(--anzeige); font-weight:900; text-transform:uppercase; letter-spacing:-.01em; font-size:clamp(1.3rem, 2.4vw, 2rem); line-height:1.05; margin:0; display:flex; gap:.7rem; align-items:center; }
+.liste .symbol { width:30px; height:30px; flex:none; }
+.liste p { margin:0; font-size:1.1rem; }
 
-main { padding-top: 2rem; padding-bottom: 3rem; }
-h1 { font-size: 2rem; line-height: 1.3; margin: 0 0 1rem; }
-h2 { font-size: 1.35rem; margin: 2.2rem 0 0.6rem; }
-h3 { font-size: 1.1rem; margin: 1.6rem 0 0.4rem; }
-p, li { max-width: 40rem; }
-.einleitung { font-size: 1.15rem; color: var(--text-leise); }
+/* Vorher/Nachher */
+.paar { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; }
+.paar figure { margin:0; }
+.paar figcaption { font-family:var(--anzeige); font-weight:900; text-transform:uppercase; font-size:1.4rem; margin-bottom:.6rem; }
+.paar img { display:block; width:100%; height:auto; background:#fff; border:3px solid var(--schwarz); }
+.vergleich { position:relative; border:3px solid var(--schwarz); background:#fff; max-width:52rem; margin:0 auto; }
+.vergleich img { display:block; width:100%; height:auto; }
+.vergleich .oben { position:absolute; inset:0; overflow:hidden; width:50%; border-right:4px solid var(--orange); }
+.vergleich .oben img { width:var(--breite, 52rem); max-width:none; }
+.regler-zeile { max-width:52rem; margin:1.2rem auto 0; display:flex; gap:1rem; align-items:center; font-weight:700; }
+.regler { flex:1; accent-color:var(--orange); height:2rem; }
+.mit-js .paar { display:none; }
+.ohne-js .vergleich, .ohne-js .regler-zeile { display:none; }
 
-.knopf {
-  display: inline-block; background: var(--akzent); color: var(--akzent-text);
-  padding: 0.8rem 1.4rem; border-radius: 12px; font-weight: bold; text-decoration: none; margin: 0.5rem 0;
-}
-.liste-merkmale { list-style: none; padding: 0; display: grid; gap: 0.9rem; }
-.liste-merkmale li { background: var(--flaeche); border: 2px solid var(--linie); border-radius: 12px; padding: 0.9rem 1.1rem; }
-.liste-merkmale strong { display: block; }
+/* Schritte */
+.schritte { list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(3, 1fr); gap:2rem; counter-reset:n; }
+.schritte li { counter-increment:n; border-top:3px solid currentColor; padding-top:1rem; }
+.schritte li::before { content:counter(n, decimal-leading-zero); display:block; font-family:var(--anzeige); font-weight:900; font-size:clamp(3rem, 7vw, 5.5rem); line-height:1; margin-bottom:.6rem; }
+.schritte h3 { font-family:var(--anzeige); font-weight:900; text-transform:uppercase; font-size:1.5rem; margin:0 0 .3rem; }
+.schritte p { margin:0; font-size:1.1rem; }
 
-ol.schritte { padding-left: 1.4rem; }
-ol.schritte li { margin-bottom: 0.7rem; }
+.abschluss p { font-size:1.25rem; max-width:36rem; }
+.knopf { display:inline-block; background:var(--creme); color:var(--tinte); padding:1rem 1.6rem; font-weight:900; text-transform:uppercase; letter-spacing:.04em; text-decoration:none; margin-top:1rem; }
+.knopf:hover { background:var(--fokus); color:#111; }
 
-.kasten { border-left: 6px solid var(--akzent); background: var(--flaeche); padding: 0.9rem 1.1rem; border-radius: 0 12px 12px 0; }
+/* Unterseiten */
+.unterseite-kopf { background:var(--mint); color:var(--tinte); padding:7rem 0 3rem; }
+.unterseite-kopf .gross { font-size:clamp(3rem, 11vw, 8rem); margin:0; }
+.inhalt { padding:3rem 0 5rem; font-size:1.1rem; }
+.inhalt h1 { display:none; }
+.inhalt h2 { font-family:var(--anzeige); font-weight:900; text-transform:uppercase; letter-spacing:-.01em; font-size:1.7rem; margin:2.6rem 0 .6rem; }
+.inhalt h3 { font-size:1.25rem; }
+.einleitung { font-size:1.35rem; line-height:1.45; }
+.inhalt a { color:var(--tinte); }
+details { border-top:3px solid var(--schwarz); padding:1rem 0; }
+details:last-of-type { border-bottom:3px solid var(--schwarz); }
+summary { font-weight:800; cursor:pointer; font-size:1.15rem; }
 
-details { border: 2px solid var(--linie); border-radius: 12px; padding: 0.6rem 1rem; margin: 0.8rem 0; }
-summary { font-weight: bold; cursor: pointer; padding: 0.3rem 0; }
+.fuss { background:var(--schwarz); color:var(--creme); }
+.fuss .innen { display:flex; flex-wrap:wrap; gap:1rem 1.6rem; align-items:center; padding-top:2rem; padding-bottom:2rem; }
+.fuss .rechts { margin-left:auto; }
 
-.fuss { border-top: 2px solid var(--linie); background: var(--flaeche); }
-.fuss-innen { padding-top: 1.2rem; padding-bottom: 1.5rem; font-size: 0.9rem; color: var(--text-leise); }
-.fuss-innen a { margin-right: 1rem; }
-
-@media (max-width: 560px) {
-  h1 { font-size: 1.6rem; }
-  .sprache { margin-left: 0; }
+@media (max-width:820px) {
+  .einstieg .unterzeile, .liste li, .paar { grid-template-columns:1fr; }
+  .liste li { gap:.5rem; }
+  .schritte { grid-template-columns:1fr; }
+  .kachel { margin-left:0; }
+  .wortmarke span + span { padding-left:12%; }
+  .wechsel, .fuss .rechts { margin-left:0; }
+  .kopf { position:static; }
+  .kopf.auf-gruen { background:var(--salbei); }
+  .kopf.auf-mint { background:var(--mint); }
+  .einstieg { padding-top:2rem; }
+  .unterseite-kopf { padding-top:2rem; }
 }
