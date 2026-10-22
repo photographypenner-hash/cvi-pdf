@@ -28,7 +28,7 @@ nav a:hover, nav a[aria-current="page"] { border-bottom-color:currentColor; }
 .auf-mint { color:var(--tinte); }
 
 /* Einstieg: grün, riesiger Schriftzug, orange Bildkachel */
-.einstieg { background:var(--salbei); color:var(--creme); padding:7rem 0 0; overflow:hidden; }
+.einstieg { background:var(--salbei); color:var(--creme); padding:7rem 0 6rem; overflow:hidden; }
 .wortmarke { font-size:clamp(5.5rem, 21vw, 19rem); margin:0; }
 .wortmarke span { display:block; }
 .wortmarke span + span { padding-left:22%; }
@@ -104,6 +104,6 @@ summary { font-weight:800; cursor:pointer; font-size:1.15rem; }
   .kopf { position:static; }
   .kopf.auf-gruen { background:var(--salbei); }
   .kopf.auf-mint { background:var(--mint); }
-  .einstieg { padding-top:2rem; }
+  .einstieg { padding-top:2rem; padding-bottom:4rem; }
   .unterseite-kopf { padding-top:2rem; }
 }
