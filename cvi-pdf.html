@@ -36,45 +36,33 @@
 <li><span class="nr">06</span><h3><svg class="symbol" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Alles bleibt auf dem Gerät</h3><p>Keine Anmeldung, keine Werbung, keine Daten im Internet.</p></li>
     </ul>
   </div>
-</section><section class="creme ohne-js" id="vergleich" aria-labelledby="vergleich-titel">
+</section><section class="creme" id="vergleich" aria-labelledby="vergleich-titel">
   <div class="innen">
     <h2 id="vergleich-titel" class="gross titel">Vorher /<br>Nachher</h2>
-    <p class="text-gross">Scrollen Sie weiter: Das Ergebnis von CVI PDF legt sich Zeile für Zeile über das Original. Bild, Aufgabe und Schreiblinien bleiben am selben Ort.</p>
-  </div>
-  <div class="scrollvergleich" id="scrollvergleich">
-    <div class="buehne">
-      <div class="blatt" data-stand="vorher">
-        <img class="unten" src="bilder/vorher.png" alt="Original-Arbeitsblatt «Der Igel im Herbst» in einer schmalen Serifenschrift mit engen Zeilen." width="1130" height="1148">
-        <div class="oben"><img src="bilder/nachher.png" alt="Dasselbe Arbeitsblatt nach CVI PDF: Text in Verdana mit mehr Buchstabenabstand, Bild, Aufgabe und Schreiblinien stehen am gleichen Ort." width="1130" height="1148"></div>
-        <div class="kante" aria-hidden="true"></div>
-        <span class="marke marke-vorher" aria-hidden="true">Original</span>
-        <span class="marke marke-nachher" aria-hidden="true">CVI PDF</span>
-      </div>
-    </div>
-  </div>
-  <div class="innen">
-    <div class="paar">
-      <figure><figcaption>Vorher</figcaption><img src="bilder/vorher.png" alt="Original-Arbeitsblatt «Der Igel im Herbst» in einer schmalen Serifenschrift mit engen Zeilen."></figure>
-      <figure><figcaption>Nachher</figcaption><img src="bilder/nachher.png" alt="Dasselbe Arbeitsblatt nach CVI PDF: Text in Verdana mit mehr Buchstabenabstand, Bild, Aufgabe und Schreiblinien stehen am gleichen Ort."></figure>
+    <p class="text-gross">Scrollen Sie weiter: Das Ergebnis von CVI PDF schiebt sich über das Original. Bild, Aufgabe und Schreiblinien bleiben am selben Ort.</p>
+    <div class="stapel">
+      <figure class="karte karte-vorher"><img src="bilder/vorher.png" alt="Original-Arbeitsblatt «Der Igel im Herbst» in einer schmalen Serifenschrift mit engen Zeilen." width="1130" height="1148"><figcaption class="marke">Original</figcaption></figure>
+      <figure class="karte karte-nachher"><img src="bilder/nachher.png" alt="Dasselbe Arbeitsblatt nach CVI PDF: Text in Verdana mit mehr Buchstabenabstand, Bild, Aufgabe und Schreiblinien stehen am gleichen Ort." width="1130" height="1148"><figcaption class="marke">CVI PDF</figcaption></figure>
     </div>
   </div>
 </section>
 <script>
-  // Vorher/Nachher beim Scrollen: das Ergebnis legt sich von oben über das Original.
-  // Ohne JavaScript stehen beide Bilder untereinander.
+  // Die Karte «CVI PDF» holt das Original beim Scrollen ein und schiebt sich darüber – nichts bleibt stehen.
   (() => {
-    const band = document.getElementById("vergleich"), strecke = document.getElementById("scrollvergleich");
-    const blatt = strecke.querySelector(".blatt");
-    band.classList.replace("ohne-js", "mit-js");
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const stapel = document.querySelector(".stapel"), vorher = stapel.querySelector(".karte-vorher"), nachher = stapel.querySelector(".karte-nachher");
     let geplant = false;
     function setzen() {
       geplant = false;
-      const r = strecke.getBoundingClientRect(), weg = Math.max(1, r.height - innerHeight);
-      const t = -r.top / weg;                                   // 0 = Blatt steht oben, 1 = Strecke zu Ende
-      const p = Math.min(1, Math.max(0, (t - 0.12) / 0.76));    // am Anfang und Ende kurz ruhig stehen
-      blatt.style.setProperty("--p", p.toFixed(4));
-      blatt.dataset.stand = p <= 0 ? "vorher" : p >= 1 ? "nachher" : "dazwischen";
+      const r = stapel.getBoundingClientRect(), h = innerHeight;
+      const roh = Math.min(1, Math.max(0, (h - r.top) / (h / 2 + r.height / 2)));   // 1 = Paar steht in der Bildschirmmitte
+      const p = roh * roh * (3 - 2 * roh);                                         // weich beginnen und weich enden
+      const halb = (nachher.offsetTop - vorher.offsetTop) / 2;
+      vorher.style.transform = `translateY(${(p * halb).toFixed(1)}px) scale(${(1 - p * 0.04).toFixed(4)})`;
+      nachher.style.transform = `translateY(${(-p * halb).toFixed(1)}px)`;
+      vorher.style.setProperty("--p", p.toFixed(3));
     }
+    stapel.classList.add("bewegt");
     addEventListener("scroll", () => { if (!geplant) { geplant = true; requestAnimationFrame(setzen); } }, { passive: true });
     addEventListener("resize", setzen);
     setzen();

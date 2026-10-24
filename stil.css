@@ -149,21 +149,17 @@ summary { font-weight:800; cursor:pointer; font-size:1.15rem; }
 body.app-page .app-symbol { width:88px; height:88px; box-shadow:0 0 0 4px var(--creme), 0 12px 28px rgba(0,0,0,.3); margin-bottom:1.2rem; }
 @media (max-width:820px) { [class*="farbe-"] .kopf.auf-gruen { background:var(--app); } }
 
-/* Vorher/Nachher als Scroll-Vergleich (CVI PDF): das Blatt bleibt stehen, das Ergebnis legt sich von oben darüber */
-.scrollvergleich { position:relative; height:250vh; margin-top:1rem; }
-.scrollvergleich .buehne { position:sticky; top:0; height:100vh; display:flex; align-items:center; justify-content:center; padding:1.5rem 24px; }
-.scrollvergleich .blatt { position:relative; width:min(52rem, 100%, calc((100vh - 5rem) * 1130 / 1148)); aspect-ratio:1130 / 1148; background:#fff;
-  border:3px solid var(--schwarz); border-radius:18px; overflow:hidden; box-shadow:0 24px 60px rgba(0,0,0,.18); }
-.blatt img { position:absolute; inset:0; display:block; width:100%; height:100%; }
-.blatt .oben { position:absolute; inset:0; clip-path:inset(0 0 calc(100% - var(--p, 0) * 100%) 0); }
-.blatt .kante { position:absolute; left:0; right:0; top:calc(var(--p, 0) * 100%); height:5px; margin-top:-2px; background:var(--orange); box-shadow:0 4px 14px rgba(0,0,0,.35); }
-.blatt[data-stand="vorher"] .kante, .blatt[data-stand="nachher"] .kante { opacity:0; }
-.blatt .marke { position:absolute; right:1rem; top:1rem; padding:.3rem .8rem; border-radius:999px; font-weight:800; font-size:.9rem; letter-spacing:.04em;
-  text-transform:uppercase; background:var(--schwarz); color:var(--creme); transition:opacity .3s; }
-.blatt .marke-nachher { background:var(--orange); color:#111; opacity:0; }
-.blatt:not([data-stand="vorher"]) .marke-nachher { opacity:1; }
-.blatt:not([data-stand="vorher"]) .marke-vorher { opacity:0; }
-.ohne-js .scrollvergleich { display:none; }
+/* Vorher/Nachher (CVI PDF): zwei Karten untereinander; mit Skript holt «CVI PDF» das Original beim Scrollen ein
+   und schiebt sich darüber, ohne dass etwas stehen bleibt */
+.stapel { width:min(52rem, 100%, calc((100vh - 7rem) * 1130 / 1148)); margin:2.5rem auto 0; display:grid; gap:2rem; }
+.karte { position:relative; margin:0; aspect-ratio:1130 / 1148; background:#fff; border:3px solid var(--schwarz); border-radius:18px; overflow:hidden; }
+.karte img { display:block; width:100%; height:100%; }
+.stapel.bewegt .karte { will-change:transform; }
+.karte-nachher { z-index:1; box-shadow:0 -18px 50px rgba(0,0,0,.22); }
+.karte-vorher { filter:brightness(calc(1 - var(--p, 0) * .25)); }
+.karte .marke { position:absolute; right:1rem; top:1rem; padding:.3rem .8rem; border-radius:999px; font-weight:800; font-size:.9rem;
+  letter-spacing:.04em; text-transform:uppercase; background:var(--schwarz); color:var(--creme); }
+.karte-nachher .marke { background:var(--orange); color:#111; }
 
 /* =====================================================================
    Sichtnah: Verbesserungen für stil.css
