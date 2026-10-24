@@ -48,18 +48,25 @@
 </section>
 <script>
   // Die Karte «CVI PDF» holt das Original beim Scrollen ein und schiebt sich darüber – nichts bleibt stehen.
+  // Ablauf: Beide scrollen normal, bis das Original ganz im Bild ist. Dann gleitet das Original langsam weiter,
+  // während CVI PDF von unten aufholt; deckungsgleich, wenn das Blatt oben im Bild steht. Danach wieder normal.
   (() => {
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const stapel = document.querySelector(".stapel"), vorher = stapel.querySelector(".karte-vorher"), nachher = stapel.querySelector(".karte-nachher");
     let geplant = false;
     function setzen() {
       geplant = false;
-      const r = stapel.getBoundingClientRect(), h = innerHeight;
-      const roh = Math.min(1, Math.max(0, (h - r.top) / (h / 2 + r.height / 2)));   // 1 = Paar steht in der Bildschirmmitte
-      const p = roh * roh * (3 - 2 * roh);                                         // weich beginnen und weich enden
-      const halb = (nachher.offsetTop - vorher.offsetTop) / 2;
-      vorher.style.transform = `translateY(${(p * halb).toFixed(1)}px) scale(${(1 - p * 0.04).toFixed(4)})`;
-      nachher.style.transform = `translateY(${(-p * halb).toFixed(1)}px)`;
+      const h = innerHeight, H = vorher.offsetHeight, abstand = nachher.offsetTop - vorher.offsetTop;
+      const oben = stapel.getBoundingClientRect().top;             // ungeschobene Lage des Originals
+      const start = h - H - 16;                                    // Original steht gerade ganz im Bild
+      const weg = h * 0.65;                                        // so viel Scrollweg dauert das Überholen
+      const ziel = 24;                                             // Treffpunkt: Blatt oben im Bild
+      const roh = Math.min(1, Math.max(0, (start - oben) / weg));
+      const p = 0.9 * roh + 0.1 * roh * roh * (3 - 2 * roh);       // fast gleichmässig: das Original gleitet nie zurück
+      const ende = start - weg;                                    // Lage des Originals, wenn p = 1
+      const schubVorher = ziel - ende, schubNachher = ziel - (ende + abstand);
+      vorher.style.transform = `translateY(${(p * schubVorher).toFixed(1)}px) scale(${(1 - p * 0.04).toFixed(4)})`;
+      nachher.style.transform = `translateY(${(p * schubNachher).toFixed(1)}px)`;
       vorher.style.setProperty("--p", p.toFixed(3));
     }
     stapel.classList.add("bewegt");
