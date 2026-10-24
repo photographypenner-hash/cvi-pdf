@@ -36,7 +36,7 @@
     }), 1500);
 
     // Abschnitte, Listen und Bilder tauchen nacheinander auf
-    const auftauchen = alle(".liste > li, .schritte > li, .apps > li, .punkte > li, .ueber > img, .ueber > div, .vergleich, " +
+    const auftauchen = alle(".liste > li, .schritte > li, .apps > li, .punkte > li, .ueber > img, .ueber > div, .vergleich, .bildschirm figure > img, " +
       ".abschluss > .innen > p, .inhalt .innen > :is(h2, h3, p:not(.einleitung), details), .inhalt .innen > :is(ul, ol) > li");
     for (const el of auftauchen) {
       el.classList.add("auftauchen");
