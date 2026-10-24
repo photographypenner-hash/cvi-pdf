@@ -151,7 +151,7 @@ body.app-page .app-symbol { width:88px; height:88px; box-shadow:0 0 0 4px var(--
 
 /* Vorher/Nachher (CVI PDF): zwei Karten untereinander; mit Skript holt «CVI PDF» das Original beim Scrollen ein
    und schiebt sich darüber, ohne dass etwas stehen bleibt */
-.stapel { width:min(52rem, 100%, calc((100vh - 7rem) * 1130 / 1148)); margin:2.5rem auto 0; display:grid; gap:2rem; }
+.stapel { width:min(52rem, 100%, calc((100vh - 10rem) * 1130 / 1148)); margin:2.5rem auto 0; display:grid; gap:max(2rem, 30vh); }
 .karte { position:relative; margin:0; aspect-ratio:1130 / 1148; background:#fff; border:3px solid var(--schwarz); border-radius:18px; overflow:hidden; }
 .karte img { display:block; width:100%; height:100%; }
 .stapel.bewegt .karte { will-change:transform; }
