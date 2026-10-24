@@ -136,6 +136,138 @@ summary { font-weight:800; cursor:pointer; font-size:1.15rem; }
   .unterseite-kopf { padding-top:2rem; }
 }
 
+/* =====================================================================
+   Sichtnah: Verbesserungen für stil.css
+   1. Fokusring, der auf allen Gründen sichtbar ist
+   2. Selbst gehostete Schriften (keine Anfragen an fremde Server)
+
+   Eingebaut am 24.10.2026 vor dem Bewegungsteil; die Regeln hier überschreiben die älteren weiter oben.
+   ===================================================================== */
+
+
+/* ---------------------------------------------------------------------
+   1. FOKUSRING
+   Ersetzt in stil.css die bestehende Regel
+   "a:focus-visible, summary:focus-visible, input:focus-visible,
+    button:focus-visible { outline: ... }"
+
+   Aufbau: dunkler Innenring (3px, schwarz) im Abstand zwischen Element
+   und gelbem Aussenring (4px). Der Ring hat damit immer eine Kante mit
+   genügend Kontrast:
+     auf creme / mint:   schwarz  16.8:1 / 15.5:1
+     auf salbei / tinte: fokus     5.5:1 /  9.3:1
+     auf schwarz:        fokus    13.7:1
+   --------------------------------------------------------------------- */
+
+:root {
+  --fokus-innen: #111;
+}
+
+a:focus-visible,
+summary:focus-visible,
+input:focus-visible,
+button:focus-visible,
+[tabindex]:focus-visible {
+  outline: 4px solid var(--fokus);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 3px var(--fokus-innen);
+  border-radius: 4px;
+}
+
+/* Der Regler im Vorher/Nachher-Vergleich: Ring um die ganze Zeile,
+   damit er nicht am Daumen klebt */
+.regler:focus-visible {
+  outline-offset: 6px;
+  box-shadow: 0 0 0 6px var(--fokus-innen);
+}
+
+/* Windows-Kontrastmodus: Farben werden ersetzt, der Rahmen bleibt */
+@media (forced-colors: active) {
+  a:focus-visible,
+  summary:focus-visible,
+  input:focus-visible,
+  button:focus-visible,
+  [tabindex]:focus-visible {
+    outline-color: Highlight;
+    box-shadow: none;
+  }
+}
+
+
+/* ---------------------------------------------------------------------
+   2. SCHRIFTEN SELBST EINBINDEN
+   Dateien in einen Ordner "schriften/" neben stil.css legen
+   (gleiche Ebene wie "bilder/").
+
+   Titel:     Archivo, variabel, Stärke 100 bis 900
+              -> echtes Schwarz (900) auf allen Geräten
+   Lesetext:  Atkinson Hyperlegible Next, variabel, Stärke 200 bis 800
+              vom Braille Institute für Menschen mit Sehbeeinträchtigung
+              entwickelt
+
+   Beide unter SIL Open Font License, frei auch für kommerzielle Nutzung
+   und Selbst-Hosting. Bezugsquelle: fontsource.org oder Google Fonts
+   (dort herunterladen, nicht per Link einbinden).
+   --------------------------------------------------------------------- */
+
+@font-face {
+  font-family: "Archivo";
+  src: url("schriften/archivo-latin-standard-normal.woff2") format("woff2");
+  font-weight: 100 900;
+  font-stretch: 62% 125%;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Atkinson Hyperlegible Next";
+  src: url("schriften/atkinson-hyperlegible-next-latin-wght-normal.woff2") format("woff2");
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Atkinson Hyperlegible Next";
+  src: url("schriften/atkinson-hyperlegible-next-latin-wght-italic.woff2") format("woff2");
+  font-weight: 200 800;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Bestehende Variable ersetzen, der alte Stapel bleibt als Rückfall */
+:root {
+  --anzeige: "Archivo", "Helvetica Neue", "Arial Black", Arial, system-ui, sans-serif;
+  --text: "Atkinson Hyperlegible Next", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+}
+
+body {
+  font-family: var(--text);
+}
+
+/* Fett-Stufen im Lesetext: Atkinson endet bei 800.
+   Stellen mit 900 (Knopf) auf 800 setzen, sonst rechnet der
+   Browser eine künstliche Fettung dazu. */
+.knopf {
+  font-weight: 800;
+}
+
+
+/* ---------------------------------------------------------------------
+   Optional: Archivo etwas schmaler für die riesige Wortmarke.
+   Archivo hat eine Breitenachse (62 bis 125). 100 = normal.
+   Ausprobieren, ob 90 näher am bisherigen Bild liegt.
+   --------------------------------------------------------------------- */
+
+/*
+.gross,
+.liste h3, .liste .nr,
+.schritte h3, .schritte li::before,
+.apps h3, .paar figcaption, .punkte li, .inhalt h2 {
+  font-variation-settings: "wdth" 90;
+}
+*/
+
 /* ---------- Bewegung (angelehnt an capsules.moyra.co) ----------
    Gesteuert von bewegung.js. Ohne JavaScript oder mit «Bewegung reduzieren» ist alles sofort sichtbar. */
 
