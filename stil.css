@@ -351,3 +351,24 @@ nav a:hover, nav a[aria-current="page"] { background-size:100% 2px; }
   main > section + section, .unterseite-kopf + .inhalt { margin-top:0; border-radius:0; }
   *, *::before, *::after { opacity:1 !important; transform:none !important; clip-path:none !important; }
 }
+
+/* Knopf «Barrierefreie Ansicht»: gefüllt, mit Symbol, in den Farben des Kopfs, damit man ihn sofort findet */
+.wechsel { display:flex; align-items:center; gap:.4rem .9rem; flex-wrap:wrap; }
+.wechsel a[href*="barrierefrei"] {
+  display:inline-flex; align-items:center; gap:.5rem; min-height:44px; padding:.45rem 1.05rem .45rem .8rem;
+  border-radius:999px; text-decoration:none; font-size:.95rem; font-weight:800; letter-spacing:.01em;
+  background:var(--creme); color:#111; box-shadow:0 2px 0 rgba(0,0,0,.18);
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+.auf-mint .wechsel a[href*="barrierefrei"] { background:var(--tinte); color:var(--creme); }
+.wechsel a[href*="barrierefrei"]::before {
+  content:""; flex:none; width:1.35em; height:1.35em; background:currentColor;
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='10.5' fill='none' stroke='black' stroke-width='2'/%3E%3Ccircle cx='12' cy='6.6' r='1.7'/%3E%3Cpath d='M6.5 9.3c1.8.5 3.6.8 5.5.8s3.7-.3 5.5-.8l.4 1.4c-1.4.4-2.8.7-4.2.8v2.4l1.9 5.3-1.4.5-2.2-5.2-2.2 5.2-1.4-.5 1.9-5.3v-2.4c-1.4-.1-2.8-.4-4.2-.8z'/%3E%3C/svg%3E") center / contain no-repeat;
+          mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='10.5' fill='none' stroke='black' stroke-width='2'/%3E%3Ccircle cx='12' cy='6.6' r='1.7'/%3E%3Cpath d='M6.5 9.3c1.8.5 3.6.8 5.5.8s3.7-.3 5.5-.8l.4 1.4c-1.4.4-2.8.7-4.2.8v2.4l1.9 5.3-1.4.5-2.2-5.2-2.2 5.2-1.4-.5 1.9-5.3v-2.4c-1.4-.1-2.8-.4-4.2-.8z'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+.wechsel a[href*="barrierefrei"]:hover { transform:translateY(-1px); box-shadow:0 4px 0 rgba(0,0,0,.22); text-decoration:underline; }
+.wechsel a[href*="barrierefrei"]:focus-visible { outline-offset:4px; border-radius:999px; }
+@media (forced-colors: active) {
+  .wechsel a[href*="barrierefrei"] { border:2px solid LinkText; }
+  .wechsel a[href*="barrierefrei"]::before { background:LinkText; }
+}
