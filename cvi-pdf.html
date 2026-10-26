@@ -67,6 +67,8 @@
       const schubVorher = ziel - ende, schubNachher = ziel - (ende + abstand);
       vorher.style.transform = `translateY(${(p * schubVorher).toFixed(1)}px) scale(${(1 - p * 0.04).toFixed(4)})`;
       nachher.style.transform = `translateY(${(p * schubNachher).toFixed(1)}px)`;
+      // Was danach kommt, rückt im gleichen Mass nach: kein leerer Platz, wo CVI PDF vorher stand
+      stapel.style.marginBottom = `${(p * schubNachher).toFixed(1)}px`;
       vorher.style.setProperty("--p", p.toFixed(3));
     }
     stapel.classList.add("bewegt");
